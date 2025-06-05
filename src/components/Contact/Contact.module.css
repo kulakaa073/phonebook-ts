@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 288px;
+  padding: 8px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  background-color: rgba(var(--secondary-rgb), 0.3);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.controlls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.controllButton {
+  padding: 4px 8px;
+  background-color: var(--secondary);
+  outline: none;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  border-radius: 8px;
+  &:hover {
+    background-color: rgba(var(--secondary-rgb), 0.6);
+  }
+}

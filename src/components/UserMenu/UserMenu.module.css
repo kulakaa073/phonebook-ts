@@ -1,0 +1,46 @@
+.container {
+  position: relative;
+}
+
+.link {
+  display: block;
+  padding: 16px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.link:hover {
+  text-shadow: 1px 1px 10px var(--accent);
+}
+
+.isActive {
+  text-decoration: underline;
+}
+
+.menuDropdown {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(100%);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background-color: rgba(var(--primary-rgb), 0.9);
+  box-shadow: 0px 4px 6px var(--accent);
+}
+
+.logoutButton {
+  padding: 8px;
+  background-color: var(--secondary);
+  outline: none;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  border-radius: 8px;
+  &:hover {
+    background-color: rgba(var(--secondary-rgb), 0.6);
+  }
+}

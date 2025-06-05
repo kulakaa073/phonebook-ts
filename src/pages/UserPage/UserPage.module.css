@@ -1,0 +1,29 @@
+.container {
+  padding: 24px 16px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.infoField {
+  display: flex;
+  gap: 12px;
+}
+
+.button {
+  padding: 8px;
+  background-color: var(--secondary);
+  outline: none;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  border-radius: 8px;
+  &:hover {
+    background-color: rgba(var(--secondary-rgb), 0.6);
+  }
+}

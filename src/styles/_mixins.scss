@@ -1,0 +1,55 @@
+@use 'sass:math';
+@use './breakpoints' as *;
+
+/*
+screen types: 
+    mobile,
+    mobile-wide,
+    to-desktop
+    desktop,
+*/
+@mixin media($_screen) {
+  @if $_screen ==mobile {
+    @media screen and (min-width: $mobile) {
+      @content;
+    }
+  } @else if $_screen ==mobile-wide {
+    @media screen and (min-width: $mobile-wide) {
+      @content;
+    }
+  } @else if $_screen ==to-tablet {
+    @media screen and (min-width: $to-tablet) {
+      @content;
+    }
+  } @else if $_screen ==tablet {
+    @media screen and (min-width: $tablet) {
+      @content;
+    }
+  } @else if $_screen ==to-desktop {
+    @media screen and (max-width: $to-desktop) {
+      @content;
+    }
+  } @else if $_screen ==desktop {
+    @media screen and (min-width: $desktop) {
+      @content;
+    }
+  }
+}
+
+@mixin high-resolution {
+  @media screen and (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+@mixin font($_fsz, $_lnh) {
+  font-size: #{$_fsz}px;
+
+  $result: math.div($_lnh, $_fsz);
+
+  line-height: math.div(math.round($result * 100), 100);
+}
+
+@mixin bg-with-opacity($color, $alpha: 0.5) {
+  background-color: $color + $alpha;
+}

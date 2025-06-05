@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+  margin: 0 auto;
+  color: var(--text);
+  text-align: center;
+}

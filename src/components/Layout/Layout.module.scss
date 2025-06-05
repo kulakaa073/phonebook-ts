@@ -1,0 +1,26 @@
+.container {
+  max-width: $mobile;
+
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+@include media(mobile-wide) {
+  .container {
+    max-width: $mobile-wide;
+  }
+}
+
+@include media(tablet) {
+  .container {
+    max-width: $tablet;
+    padding: 0 32px;
+  }
+}
+
+@include media(desktop) {
+  .container {
+    max-width: $desktop;
+    padding: 0 48px;
+  }
+}

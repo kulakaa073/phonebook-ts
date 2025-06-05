@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  padding: 0 16px;
+
+  border: 1px solid var(--accent);
+  background-color: rgba(var(--primary-rgb), 0.9);
+  box-shadow: 0px 4px 6px var(--secondary);
+}

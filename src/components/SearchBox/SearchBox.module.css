@@ -1,0 +1,15 @@
+.container {
+  color: var(--text);
+  width: 100%;
+}
+
+.field {
+  width: 100%;
+  height: 2lh;
+  background-color: var(--primary);
+  outline: none;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  padding-left: 8px;
+}

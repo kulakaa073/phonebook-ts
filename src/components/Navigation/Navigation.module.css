@@ -1,0 +1,12 @@
+.link {
+  padding: 16px;
+  color: var(--text);
+}
+
+.link:hover {
+  text-shadow: 1px 1px 5px var(--accent);
+}
+
+.isActive {
+  text-decoration: underline;
+}

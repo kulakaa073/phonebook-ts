@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+}
+
+.link {
+  padding: 16px;
+  color: var(--text);
+  display: block;
+}
+
+.link:hover {
+  text-shadow: 1px 1px 5px var(--accent);
+}
+
+.isActive {
+  text-decoration: underline;
+}

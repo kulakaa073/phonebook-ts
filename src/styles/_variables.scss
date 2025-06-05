@@ -1,0 +1,28 @@
+@use 'sass:map';
+//#F8FAFC	▉	Very light, almost white	Background / cards / app shell
+//#D9EAFD	▉	Pale blue, very soft	Surface elements / light hover
+//#BCCCDC	▉	Soft gray-blue	Borders / form fields / inactive UI
+//#9AA6B2	▉	Muted blue-gray	helper text, placeholders, or inactive labels / disabled UI
+//#fafafa 		#e4e5f1 		#d2d3db 		#9394a5 		#484b6a
+
+$theme_light: (
+  background: #f8fafc,
+  primary: #d9eafd,
+  secondary: #bcccdc,
+  accent: #9aa6b2,
+  text: #1a1a1a,
+);
+
+//#202225 	#292b2f 	#2f3136 	#40444b     #40444b
+
+$theme_dark: (
+  background: #352f44,
+  primary: #5c5470,
+  secondary: #b9b4c7,
+  accent: #faf0e6,
+  text: #f5ebdd,
+);
+
+@function theme-color($theme, $key) {
+  @return map.get($theme, $key);
+}
