@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Utility to add JWT
-const setAuthHeader = token => {
+const setAuthHeader = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -67,7 +67,7 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     // get persisted state to get saved auth token
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const persistedToken = state.auth.token: String;
     try {
       // attach saved token to header
       setAuthHeader(persistedToken);

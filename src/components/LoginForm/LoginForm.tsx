@@ -1,13 +1,22 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
 import styles from './LoginForm.module.css';
 
-export default function LoginForm({ onSubmit }) {
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+interface Props {
+  onSubmit: (values: LoginFormValues) => void;
+}
+
+export default function LoginForm({ onSubmit }: Props) {
   const emailId = useId();
   const passwordId = useId();
 
-  const initialValues = {
+  const initialValues: LoginFormValues = {
     email: '',
     password: '',
   };
@@ -17,7 +26,10 @@ export default function LoginForm({ onSubmit }) {
     password: Yup.string().required('Please enter the password'),
   });
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = (
+    values: LoginFormValues,
+    actions: FormikHelpers<LoginFormValues>
+  ) => {
     onSubmit(values);
     actions.resetForm();
   };
@@ -45,6 +57,7 @@ export default function LoginForm({ onSubmit }) {
               id={passwordId}
               name="password"
               className={styles.formField}
+              type={'password'}
             />
             <ErrorMessage
               name="password"
