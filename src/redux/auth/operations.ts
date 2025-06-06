@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { type RootState } from '../store';
 
 // Utility to add JWT
 const setAuthHeader = (token: string) => {
@@ -24,7 +25,10 @@ export const register = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(String(error));
     }
   }
 );
@@ -41,7 +45,10 @@ export const login = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(String(error));
     }
   }
 );
@@ -55,7 +62,10 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     clearAuthHeader();
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    if (error instanceof Error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+    return thunkAPI.rejectWithValue(String(error));
   }
 });
 
@@ -66,8 +76,8 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     // get persisted state to get saved auth token
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token: String;
+    const state: RootState = thunkAPI.getState();
+    const persistedToken = state.auth.token;
     try {
       // attach saved token to header
       setAuthHeader(persistedToken);
