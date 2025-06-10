@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'modern-normalize/modern-normalize.css';
-import App from './App.js';
+import App from './components/App/App.js';
 
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
@@ -12,7 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './styles/base.scss';
 import './styles/reset.css';
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root') as HTMLElement;
 if (!rootElement) {
   throw new Error("Root element with id 'root' not found");
 }

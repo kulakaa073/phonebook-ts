@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { type Theme } from '../../components/App/App.types';
 
-interface Theme {
-  name: string;
-}
-
-const initialState: Theme = { name: 'light' }; // yes, evil
+const initialState = { name: 'light' as Theme }; // yes, evil
 
 const slice = createSlice({
   name: 'theme',
@@ -14,7 +11,7 @@ const slice = createSlice({
       reducer: (state, action) => {
         state.name = action.payload.name;
       },
-      prepare: (name: string) => {
+      prepare: (name: Theme) => {
         return { payload: { name } };
       },
     },
