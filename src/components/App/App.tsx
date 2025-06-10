@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../../redux/auth/selectors.js';
 import { refreshUser } from '../../redux/auth/operations.js';
 
-import { type Theme } from './App.types.js';
-
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage.jsx'));
 const RegistrationPage = lazy(
   () => import('../../pages/RegistrationPage/RegistrationPage.jsx')
@@ -28,8 +26,8 @@ const UserPage = lazy(() => import('../../pages/UserPage/UserPage.jsx'));
 
 function App() {
   const dispatch = useDispatch();
-  const isRefreshing: Boolean = useSelector<Boolean>(selectIsRefreshing);
-  const theme = useSelector<Theme>(selectTheme); // e.g., 'light' or 'dark'
+  const isRefreshing = useSelector(selectIsRefreshing) as boolean;
+  const theme = useSelector(selectTheme); // e.g., 'light' or 'dark'
 
   useEffect(() => {
     const root = document.getElementById('root');

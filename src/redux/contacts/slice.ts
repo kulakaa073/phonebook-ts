@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchContacts,
   addContact,
@@ -7,11 +7,7 @@ import {
 } from './operations';
 import { logout } from '../auth/operations';
 
-export interface Contact {
-  id: string;
-  name: string;
-  number: string;
-}
+import { type Contact } from '../../types';
 
 interface ContactsState {
   items: Contact[];

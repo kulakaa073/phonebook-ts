@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { type Theme } from '../../components/App/App.types';
+import type { Theme } from '../../types';
 
 const initialState = { name: 'light' as Theme }; // yes, evil
 
@@ -8,7 +8,7 @@ const slice = createSlice({
   initialState: initialState,
   reducers: {
     setTheme: {
-      reducer: (state, action) => {
+      reducer: (state, action: { payload: { name: Theme } }) => {
         state.name = action.payload.name;
       },
       prepare: (name: Theme) => {

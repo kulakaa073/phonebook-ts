@@ -76,22 +76,28 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     // get persisted state to get saved auth token
-    const state: RootState = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const state = thunkAPI.getState() as RootState;
+    const persistedToken: string | null = state.auth.token;
     try {
       // attach saved token to header
-      setAuthHeader(persistedToken);
+      if (typeof persistedToken === 'string' && persistedToken) {
+        setAuthHeader(persistedToken);
+      } else {
+        return thunkAPI.rejectWithValue('No authentication token found');
+      }
       const response = await axios.get('/users/current');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(
+        error instanceof Error ? error.message : String(error)
+      );
     }
   },
   {
     // learn more later
     condition: (_, thunkAPI) => {
       // get persisted state to get saved auth token
-      const state = thunkAPI.getState();
+      const state = thunkAPI.getState() as RootState;
       const persistedToken = state.auth.token;
 
       return persistedToken !== null;

@@ -2,14 +2,14 @@ import { useDispatch } from 'react-redux';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { login } from '../../redux/auth/operations';
 import styles from './LoginPage.module.css';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster, type ToastPosition } from 'react-hot-toast';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
 
   const toastOptions = {
     duration: 4000,
-    position: 'top-right',
+    position: 'top-right' as ToastPosition,
   };
 
   const toasts = {

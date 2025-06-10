@@ -1,3 +1,5 @@
-export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+import type { RootState } from '../store';
+
+export const selectIsLoggedIn = state:RootState => state.auth.isLoggedIn;
 export const selectUser = state => state.auth.user;
 export const selectIsRefreshing = state => state.auth.isRefreshing;
