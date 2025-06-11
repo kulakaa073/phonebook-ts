@@ -2,6 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { type RootState } from '../store';
 
+interface Credentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
 // Utility to add JWT
 const setAuthHeader = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -19,7 +25,7 @@ const clearAuthHeader = () => {
 //          "password": 'string' }
 export const register = createAsyncThunk(
   'auth/register ',
-  async (credentials, thunkAPI) => {
+  async (credentials: Credentials, thunkAPI) => {
     try {
       const response = await axios.post('users/signup', credentials);
       setAuthHeader(response.data.token);
@@ -39,7 +45,7 @@ export const register = createAsyncThunk(
 //          "password": "string" }
 export const login = createAsyncThunk(
   'auth/logIn',
-  async (credentials, thunkAPI) => {
+  async (credentials: Omit<Credentials, 'name'>, thunkAPI) => {
     try {
       const response = await axios.post('users/login', credentials);
       setAuthHeader(response.data.token);

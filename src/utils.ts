@@ -1,4 +1,4 @@
-export function formatPhoneNumber(number: string) {
+export function formatPhoneNumber(number: string): string {
   const normalizedNumber = normalizePhoneNumber(number);
   return `${normalizedNumber.slice(0, 3)}-${normalizedNumber.slice(
     3,
@@ -6,6 +6,6 @@ export function formatPhoneNumber(number: string) {
   )}-${normalizedNumber.slice(5)}`;
 }
 
-export function normalizePhoneNumber(number: string) {
+export function normalizePhoneNumber(number: string): string {
   return number.replace(/[+\s()-]+/g, '');
 }

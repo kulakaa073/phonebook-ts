@@ -7,7 +7,7 @@ import {
 } from './operations';
 import { logout } from '../auth/operations';
 
-import { type Contact } from '../../types';
+import type { Contact } from '../../types';
 
 interface ContactsState {
   items: Contact[];

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import type { Contact } from '../../types';
 
 axios.defaults.baseURL = 'https://connections-api.goit.global/';
 
@@ -13,7 +14,10 @@ export const fetchContacts = createAsyncThunk(
       const response = await axios.get('/contacts');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(String(error));
     }
   }
 );
@@ -30,7 +34,10 @@ export const addContact = createAsyncThunk(
       const response = await axios.post('/contacts', contact);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(String(error));
     }
   }
 );
@@ -43,7 +50,13 @@ export const addContact = createAsyncThunk(
 //          number: string, }
 export const editContact = createAsyncThunk(
   'contacts/editContact',
-  async ({ contactId, contactUpdates }, thunkAPI) => {
+  async (
+    {
+      contactId,
+      contactUpdates,
+    }: { contactId: string; contactUpdates: Contact },
+    thunkAPI
+  ) => {
     try {
       const response = await axios.patch(
         `/contacts/${contactId}`,
@@ -51,7 +64,10 @@ export const editContact = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(String(error));
     }
   }
 );
@@ -62,12 +78,15 @@ export const editContact = createAsyncThunk(
 // headers: Authorization: Beared token
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (contactId, thunkAPI) => {
+  async (contactId: string, thunkAPI) => {
     try {
       const response = await axios.delete(`/contacts/${contactId}`);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue(String(error));
     }
   }
 );

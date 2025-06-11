@@ -1,12 +1,6 @@
 export interface User {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  user: Pick<User, 'email' | 'password'>;
-  token: string;
+  name: string | null;
+  email: string | null;
 }
 
 export interface Contact {

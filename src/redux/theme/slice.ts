@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { Theme } from '../../types';
 
-const initialState = { name: 'light' as Theme }; // yes, evil
+interface ThemeState {
+  name: Theme;
+}
+const initialState: ThemeState = { name: 'light' }; // yes, evil
 
 const slice = createSlice({
   name: 'theme',

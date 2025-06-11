@@ -2,10 +2,14 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectFilter } from '../filters/selectors';
 import { normalizePhoneNumber } from '../../utils';
 
-export const selectContacts = state => state.contacts.items;
-export const selectIsLoading = state => state.contacts.isLoading;
-export const selectError = state => state.contacts.error;
-export const selectLastFetched = state => state.contacts.lastFetched;
+import type { RootState } from '../store';
+import type { Contact } from '../../types';
+
+export const selectContacts = (state: RootState) => state.contacts.items;
+export const selectIsLoading = (state: RootState) => state.contacts.isLoading;
+export const selectError = (state: RootState) => state.contacts.error;
+export const selectLastFetched = (state: RootState) =>
+  state.contacts.lastFetched;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
@@ -13,7 +17,7 @@ export const selectFilteredContacts = createSelector(
     // no filter, return all contacts
     if (!filter) return contacts;
 
-    let filteredcontacts;
+    let filteredcontacts: Contact[];
 
     // no contacts in store, return empty array
     if (!contacts) {
@@ -39,7 +43,7 @@ export const selectFilteredContacts = createSelector(
   }
 );
 
-export const selectContactById = contactId => state => {
+export const selectContactById = (contactId: string) => (state: RootState) => {
   if (!contactId) return;
   const contacts = selectContacts(state);
   return contacts.find(contact => contact.id === contactId);
