@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { type RootState } from '../store';
+import type { User } from '../../types';
 
 interface Credentials {
-  name: string;
   email: string;
   password: string;
 }
@@ -23,62 +23,78 @@ const clearAuthHeader = () => {
 // body: {  "name": 'string',
 //          "email": 'string',
 //          "password": 'string' }
-export const register = createAsyncThunk(
-  'auth/register ',
-  async (credentials: Credentials, thunkAPI) => {
-    try {
-      const response = await axios.post('users/signup', credentials);
-      setAuthHeader(response.data.token);
-      return response.data;
-    } catch (error) {
-      if (error instanceof Error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-      return thunkAPI.rejectWithValue(String(error));
-    }
+// response: { user:{ name: 'string',
+//                    email:'string',
+//                  },
+//                  token: 'string' }
+export const register = createAsyncThunk<
+  { user: User; token: string },
+  Credentials,
+  { rejectValue: string }
+>('auth/register ', async (credentials, thunkAPI) => {
+  try {
+    const response = await axios.post<{ user: User; token: string }>(
+      'users/signup',
+      credentials
+    );
+    setAuthHeader(response.data.token);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : String(error)
+    );
   }
-);
+});
 
 // {POST}
 // users/login
 // body: {  "email": "string",
 //          "password": "string" }
-export const login = createAsyncThunk(
-  'auth/logIn',
-  async (credentials: Omit<Credentials, 'name'>, thunkAPI) => {
-    try {
-      const response = await axios.post('users/login', credentials);
-      setAuthHeader(response.data.token);
-      return response.data;
-    } catch (error) {
-      if (error instanceof Error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-      return thunkAPI.rejectWithValue(String(error));
-    }
+export const login = createAsyncThunk<
+  { user: User; token: string },
+  Credentials,
+  { rejectValue: string }
+>('auth/logIn', async (credentials, thunkAPI) => {
+  try {
+    const response = await axios.post<{ user: User; token: string }>(
+      'users/login',
+      credentials
+    );
+    setAuthHeader(response.data.token);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(
+      error instanceof Error ? error.message : String(error)
+    );
   }
-);
+});
 
 // {POST}
 // /users/logout
 // headers: Authorization: Beared token
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  try {
-    const response = await axios.post('users/logout');
-    clearAuthHeader();
-    return response.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      return thunkAPI.rejectWithValue(error.message);
+export const logout = createAsyncThunk<unknown, void, { rejectValue: string }>(
+  'auth/logout',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.post('users/logout');
+      clearAuthHeader();
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error instanceof Error ? error.message : String(error)
+      );
     }
-    return thunkAPI.rejectWithValue(String(error));
   }
-});
+);
 
 // {GET}
 // /users/current
 // headers: Authorization: Beared token
-export const refreshUser = createAsyncThunk(
+export const refreshUser = createAsyncThunk<
+  User,
+  void,
+  { rejectValue: string }
+>(
   'auth/refresh',
   async (_, thunkAPI) => {
     // get persisted state to get saved auth token
@@ -91,7 +107,7 @@ export const refreshUser = createAsyncThunk(
       } else {
         return thunkAPI.rejectWithValue('No authentication token found');
       }
-      const response = await axios.get('/users/current');
+      const response = await axios.get<User>('/users/current');
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
