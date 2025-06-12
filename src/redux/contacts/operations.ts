@@ -30,7 +30,7 @@ export const fetchContacts = createAsyncThunk<
 //          number: string, }
 export const addContact = createAsyncThunk<
   Contact,
-  Contact,
+  Omit<Contact, 'id'>,
   { rejectValue: string }
 >('contacts/addContact', async (contact, thunkAPI) => {
   try {
@@ -52,7 +52,7 @@ export const addContact = createAsyncThunk<
 //          number: string, }
 export const editContact = createAsyncThunk<
   Contact,
-  { contactId: string; contactUpdates: Contact },
+  { contactId: string; contactUpdates: Omit<Contact, 'id'> },
   { rejectValue: string }
 >('contacts/editContact', async ({ contactId, contactUpdates }, thunkAPI) => {
   try {
@@ -75,7 +75,7 @@ export const editContact = createAsyncThunk<
 // headers: Authorization: Beared token
 export const deleteContact = createAsyncThunk<
   Contact,
-  string,
+  string | null,
   { rejectValue: string }
 >('contacts/deleteContact', async (contactId, thunkAPI) => {
   try {

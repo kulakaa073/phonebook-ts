@@ -43,8 +43,9 @@ export const selectFilteredContacts = createSelector(
   }
 );
 
-export const selectContactById = (contactId: string) => (state: RootState) => {
-  if (!contactId) return;
-  const contacts = selectContacts(state);
-  return contacts.find(contact => contact.id === contactId);
-};
+export const selectContactById =
+  (contactId: string | null) => (state: RootState) => {
+    if (!contactId) return;
+    const contacts = selectContacts(state);
+    return contacts.find(contact => contact.id === contactId);
+  };

@@ -2,11 +2,14 @@ import { useDispatch } from 'react-redux';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 import { register } from '../../redux/auth/operations';
 import styles from './RegistrationPage.module.css';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster, type ToastOptions } from 'react-hot-toast';
+
+import type { AppDispatch } from '../../redux/store';
+import type { Credentials } from '../../types';
 
 export default function RegistrationPage() {
-  const dispatch = useDispatch();
-  const toastOptions = {
+  const dispatch = useDispatch<AppDispatch>();
+  const toastOptions: ToastOptions = {
     duration: 4000,
     position: 'top-right',
   };
@@ -21,7 +24,7 @@ export default function RegistrationPage() {
       ),
   };
 
-  const handleSignup = signupData => {
+  const handleSignup = (signupData: Credentials) => {
     dispatch(
       register({
         name: signupData.name,

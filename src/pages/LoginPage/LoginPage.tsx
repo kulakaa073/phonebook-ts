@@ -2,14 +2,17 @@ import { useDispatch } from 'react-redux';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { login } from '../../redux/auth/operations';
 import styles from './LoginPage.module.css';
-import toast, { Toaster, type ToastPosition } from 'react-hot-toast';
+import toast, { Toaster, type ToastOptions } from 'react-hot-toast';
+
+import type { Credentials } from '../../types';
+import type { AppDispatch } from '../../redux/store';
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const toastOptions = {
+  const toastOptions: ToastOptions = {
     duration: 4000,
-    position: 'top-right' as ToastPosition,
+    position: 'top-right',
   };
 
   const toasts = {
@@ -22,7 +25,7 @@ export default function LoginPage() {
       ),
   };
 
-  const handleSubmit = loginData => {
+  const handleSubmit = (loginData: Credentials) => {
     dispatch(login({ email: loginData.email, password: loginData.password }))
       .unwrap()
       .then(() => toasts.success())

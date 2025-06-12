@@ -4,14 +4,15 @@ import { logout } from '../../redux/auth/operations';
 import { memo, useEffect, useRef, useState } from 'react';
 import styles from './UserMenu.module.css';
 import clsx from 'clsx';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster, type ToastOptions } from 'react-hot-toast';
+import type { AppDispatch } from '../../redux/store';
 
 export const UserMenu = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const dispatch = useDispatch();
-  const menuRef = useRef();
+  const dispatch = useDispatch<AppDispatch>();
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  const getActiveLinkClass = ({ isActive }) =>
+  const getActiveLinkClass = ({ isActive }: { isActive: boolean }) =>
     clsx(styles.link, isActive && styles.isActive);
 
   const handleLogOut = () => {
@@ -22,7 +23,7 @@ export const UserMenu = memo(() => {
     setIsMenuOpen(false);
   };
 
-  const toastOptions = {
+  const toastOptions: ToastOptions = {
     duration: 4000,
     position: 'top-right',
   };
@@ -43,8 +44,12 @@ export const UserMenu = memo(() => {
 
   // Attach eventListener if menu is open to close it on click
   useEffect(() => {
-    const handleClick = event => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClick = (event: MouseEvent) => {
+      if (
+        menuRef.current &&
+        event.target &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
         setIsMenuOpen(false);
       }
     };

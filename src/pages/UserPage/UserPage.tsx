@@ -4,10 +4,11 @@ import { logout } from '../../redux/auth/operations';
 import { selectTheme } from '../../redux/theme/selectors';
 import { toggleTheme } from '../../redux/theme/slice';
 import styles from './UserPage.module.css';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster, type ToastOptions } from 'react-hot-toast';
+import type { AppDispatch } from '../../redux/store';
 
 export default function UserPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const userData = useSelector(selectUser);
   const theme = useSelector(selectTheme);
 
@@ -23,7 +24,7 @@ export default function UserPage() {
     dispatch(toggleTheme());
   };
 
-  const toastOptions = {
+  const toastOptions: ToastOptions = {
     duration: 4000,
     position: 'top-right',
   };

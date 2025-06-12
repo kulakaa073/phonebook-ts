@@ -5,42 +5,44 @@ import {
   selectIsLoading,
   selectFilteredContacts,
   selectLastFetched,
-} from '../../redux/contacts/selectors';
+} from '../../redux/contacts/selectors.js';
 import {
   fetchContacts,
   deleteContact,
   addContact,
   editContact,
-} from '../../redux/contacts/operations';
+} from '../../redux/contacts/operations.js';
 
-import { ContactForm } from '../../components/ContactForm/ContactForm';
-import { SearchBox } from '../../components/SearchBox/SearchBox.jsx';
-import { ContactList } from '../../components/ContactList/ContactList';
-import { ContactDeleteConfirmModal } from '../../components/ContactDeleteConfirmModal/ContactDeleteConfirmModal.jsx';
+import { ContactForm } from '../../components/ContactForm/ContactForm.jsx';
+import { SearchBox } from '../../components/SearchBox/SearchBox.js';
+import { ContactList } from '../../components/ContactList/ContactList.js';
+import { ContactDeleteConfirmModal } from '../../components/ContactDeleteConfirmModal/ContactDeleteConfirmModal.js';
 import { formatPhoneNumber, normalizePhoneNumber } from '../../utils.js';
-import { selectContactById } from '../../redux/contacts/selectors';
-import toast, { Toaster } from 'react-hot-toast';
+import { selectContactById } from '../../redux/contacts/selectors.js';
+import toast, { Toaster, type ToastOptions } from 'react-hot-toast';
 import style from './ContactsPage.module.css';
+import type { AppDispatch } from '../../redux/store.js';
+import type { Contact } from '../../types.js';
 //import { useDebounce } from 'use-debounce';
 
-const ModalMode = Object.freeze({
-  Add: 'add',
-  Edit: 'edit',
-  Delete: 'delete',
-  None: 'none',
-});
+enum ModalMode {
+  Add = 'add',
+  Edit = 'edit',
+  Delete = 'delete',
+  None = 'none',
+}
 
 export default function ContactsPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const [modalMode, setModalMode] = useState(ModalMode.None);
 
   // also saves deleteding contact id
-  const [contactToChange, setContactToChange] = useState(null);
+  const [contactToChange, setContactToChange] = useState<string | null>(null);
   const contact = useSelector(selectContactById(contactToChange));
 
-  const toastOptions = {
+  const toastOptions: ToastOptions = {
     duration: 4000,
     position: 'top-right',
   };
@@ -69,7 +71,7 @@ export default function ContactsPage() {
     setModalMode(ModalMode.Delete);
   };
 
-  const handleAdd = contact => {
+  const handleAdd = (contact: Omit<Contact, 'id'>) => {
     dispatch(
       addContact({
         name: contact.name,
@@ -83,19 +85,21 @@ export default function ContactsPage() {
     handleCancel();
   };
 
-  const handleEdit = contact => {
-    dispatch(
-      editContact({
-        contactId: contact.id,
-        contactUpdates: {
-          name: contact.name,
-          number: formatPhoneNumber(normalizePhoneNumber(contact.number)),
-        },
-      })
-    )
-      .unwrap()
-      .then(() => toasts.edit())
-      .catch(() => toasts.fail());
+  const handleEdit = (contact: Contact) => {
+    if (contact.id) {
+      dispatch(
+        editContact({
+          contactId: contact.id,
+          contactUpdates: {
+            name: contact.name,
+            number: formatPhoneNumber(normalizePhoneNumber(contact.number)),
+          },
+        })
+      )
+        .unwrap()
+        .then(() => toasts.edit())
+        .catch(() => toasts.fail());
+    }
     handleCancel();
   };
 
@@ -103,7 +107,7 @@ export default function ContactsPage() {
     setModalMode(ModalMode.Add);
   };
 
-  const handleEditModalOpen = contactId => {
+  const handleEditModalOpen = (contactId: string) => {
     setContactToChange(contactId);
     setModalMode(ModalMode.Edit);
   };
