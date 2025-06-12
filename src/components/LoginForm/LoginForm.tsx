@@ -3,20 +3,17 @@ import { useId } from 'react';
 import * as Yup from 'yup';
 import styles from './LoginForm.module.css';
 
-interface LoginFormValues {
-  email: string;
-  password: string;
+import type { Credentials } from '../../types';
+
+interface LoginFormProps {
+  onSubmit: (values: Credentials) => void;
 }
 
-interface Props {
-  onSubmit: (values: LoginFormValues) => void;
-}
-
-export default function LoginForm({ onSubmit }: Props) {
+export default function LoginForm({ onSubmit }: LoginFormProps) {
   const emailId = useId();
   const passwordId = useId();
 
-  const initialValues: LoginFormValues = {
+  const initialValues: Credentials = {
     email: '',
     password: '',
   };
@@ -27,8 +24,8 @@ export default function LoginForm({ onSubmit }: Props) {
   });
 
   const handleSubmit = (
-    values: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
+    values: Credentials,
+    actions: FormikHelpers<Credentials>
   ) => {
     onSubmit(values);
     actions.resetForm();

@@ -7,7 +7,7 @@ import styles from './Navigation.module.css';
 
 export const Navigation = memo(() => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const getActiveLinkClass = ({ isActive }) => {
+  const getActiveLinkClass = ({ isActive }: { isActive: boolean }) => {
     return clsx(styles.link, isActive && styles.isActive);
   };
   return (

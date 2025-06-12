@@ -1,6 +1,14 @@
 import style from './ContactDeleteConfirmModal.module.css';
 
-export const ContactDeleteConfirmModal = ({ onCancel, onDelete }) => {
+interface DeleteModalProps {
+  onCancel: () => void;
+  onDelete: () => void;
+}
+
+export const ContactDeleteConfirmModal = ({
+  onCancel,
+  onDelete,
+}: DeleteModalProps) => {
   return (
     <div className={style.modal}>
       <div className={style.container}>

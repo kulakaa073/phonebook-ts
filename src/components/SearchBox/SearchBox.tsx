@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter } from '../../redux/filters/selectors';
 import { useDebounce } from 'use-debounce';
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, type ChangeEvent } from 'react';
 import { setFilter } from '../../redux/filters/slice';
 import styles from './SearchBox.module.css';
 
@@ -12,7 +12,7 @@ export const SearchBox = memo(() => {
   const [newFilter, setNewFilter] = useState(filter || '');
   const [debouncedFilter] = useDebounce(newFilter, 250);
 
-  const handleFilterChange = event => {
+  const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewFilter(event.target.value);
   };
 

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import styles from './AuthNav.module.css';
 
 export const AuthNav = memo(() => {
-  const getActiveLinkClass = ({ isActive }) => {
+  const getActiveLinkClass = ({ isActive }: { isActive: boolean }) => {
     return clsx(styles.link, isActive && styles.isActive);
   };
   return (

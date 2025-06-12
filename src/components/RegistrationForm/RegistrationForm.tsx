@@ -1,34 +1,38 @@
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
-import styles from './LoginForm.module.css';
+import styles from './RegistrationForm.module.css';
 
-interface LoginFormValues {
-  email: string;
-  password: string;
+import type { Credentials } from '../../types';
+
+interface SignupFormProps {
+  onSubmit: (values: Credentials) => void;
 }
 
-interface Props {
-  onSubmit: (values: LoginFormValues) => void;
-}
-
-export default function LoginForm({ onSubmit }: Props) {
+export default function RegistrationForm({ onSubmit }: SignupFormProps) {
+  const nameId = useId();
   const emailId = useId();
   const passwordId = useId();
 
-  const initialValues: LoginFormValues = {
+  const initialValues: Credentials = {
+    name: '',
     email: '',
     password: '',
   };
 
   const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required('Please enter your name')
+      .min(7, 'Name is too short!'),
     email: Yup.string().email().required('Please enter the email'),
-    password: Yup.string().required('Please enter the password'),
+    password: Yup.string()
+      .required('Please enter the password')
+      .min(7, 'Password is too short!'),
   });
 
   const handleSubmit = (
-    values: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
+    values: Credentials,
+    actions: FormikHelpers<Credentials>
   ) => {
     onSubmit(values);
     actions.resetForm();
@@ -42,6 +46,15 @@ export default function LoginForm({ onSubmit }: Props) {
         onSubmit={handleSubmit}
       >
         <Form className={styles.form}>
+          <div>
+            <label htmlFor={nameId}>Name</label>
+            <Field id={nameId} name="name" className={styles.formField} />
+            <ErrorMessage
+              name="name"
+              component="span"
+              className={styles.error}
+            />
+          </div>
           <div>
             <label htmlFor={emailId}>Email</label>
             <Field id={emailId} name="email" className={styles.formField} />
@@ -64,7 +77,7 @@ export default function LoginForm({ onSubmit }: Props) {
               className={styles.error}
             />
           </div>
-          <button type="submit" className={styles.loginButton}>
+          <button type="submit" className={styles.button}>
             Log In
           </button>
         </Form>

@@ -9,6 +9,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../../redux/auth/selectors.js';
 import { refreshUser } from '../../redux/auth/operations.js';
+import type { AppDispatch } from '../../redux/store.js';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage.jsx'));
 const RegistrationPage = lazy(
@@ -25,8 +26,8 @@ const UserPage = lazy(() => import('../../pages/UserPage/UserPage.jsx'));
 //const page = lazy(() => import());
 
 function App() {
-  const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing) as boolean;
+  const dispatch = useDispatch<AppDispatch>();
+  const isRefreshing = useSelector(selectIsRefreshing);
   const theme = useSelector(selectTheme); // e.g., 'light' or 'dark'
 
   useEffect(() => {

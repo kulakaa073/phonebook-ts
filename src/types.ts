@@ -10,3 +10,14 @@ export interface Contact {
 }
 
 export type Theme = 'light' | 'dark';
+
+export interface Credentials {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export interface RouteWrapperProps {
+  element: React.ReactElement;
+  redirectTo?: string;
+}
