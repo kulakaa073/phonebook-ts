@@ -1,28 +1,28 @@
-import Layout from '../Layout/Layout.jsx';
+import Layout from '../Layout/Layout';
 
-import { selectTheme } from '../../redux/theme/selectors.js';
+import { selectTheme } from '../../redux/theme/selectors';
 
 import { Route, Routes } from 'react-router';
-import { PrivateRoute } from '../PrivateRoute.js';
-import { RestrictedRoute } from '../RestrictedRoute.jsx';
+import { PrivateRoute } from '../PrivateRoute';
+import { RestrictedRoute } from '../RestrictedRoute';
 import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsRefreshing } from '../../redux/auth/selectors.js';
-import { refreshUser } from '../../redux/auth/operations.js';
-import type { AppDispatch } from '../../redux/store.js';
+import { selectIsRefreshing } from '../../redux/auth/selectors';
+import { refreshUser } from '../../redux/auth/operations';
+import type { AppDispatch } from '../../redux/store';
 
-const HomePage = lazy(() => import('../../pages/HomePage/HomePage.jsx'));
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const RegistrationPage = lazy(
-  () => import('../../pages/RegistrationPage/RegistrationPage.jsx')
+  () => import('../../pages/RegistrationPage/RegistrationPage')
 );
-const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage.js'));
+const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 const ContactsPage = lazy(
-  () => import('../../pages/ContactsPage/ContactsPage.jsx')
+  () => import('../../pages/ContactsPage/ContactsPage')
 );
 const NotFoundPage = lazy(
-  () => import('../../pages/NotFoundPage/NotFoundPage.jsx')
+  () => import('../../pages/NotFoundPage/NotFoundPage')
 );
-const UserPage = lazy(() => import('../../pages/UserPage/UserPage.jsx'));
+const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 //const page = lazy(() => import());
 
 function App() {

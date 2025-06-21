@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { type RootState } from '../store';
+import type { RootState } from '../store';
 import type { User, Credentials } from '../../types';
 
 // Utility to add JWT

@@ -5,24 +5,24 @@ import {
   selectIsLoading,
   selectFilteredContacts,
   selectLastFetched,
-} from '../../redux/contacts/selectors.js';
+} from '../../redux/contacts/selectors';
 import {
   fetchContacts,
   deleteContact,
   addContact,
   editContact,
-} from '../../redux/contacts/operations.js';
+} from '../../redux/contacts/operations';
 
-import { ContactForm } from '../../components/ContactForm/ContactForm.jsx';
-import { SearchBox } from '../../components/SearchBox/SearchBox.js';
-import { ContactList } from '../../components/ContactList/ContactList.js';
-import { ContactDeleteConfirmModal } from '../../components/ContactDeleteConfirmModal/ContactDeleteConfirmModal.js';
-import { formatPhoneNumber, normalizePhoneNumber } from '../../utils.js';
-import { selectContactById } from '../../redux/contacts/selectors.js';
+import { ContactForm } from '../../components/ContactForm/ContactForm';
+import { SearchBox } from '../../components/SearchBox/SearchBox';
+import { ContactList } from '../../components/ContactList/ContactList';
+import { ContactDeleteConfirmModal } from '../../components/ContactDeleteConfirmModal/ContactDeleteConfirmModal';
+import { formatPhoneNumber, normalizePhoneNumber } from '../../utils';
+import { selectContactById } from '../../redux/contacts/selectors';
 import toast, { Toaster, type ToastOptions } from 'react-hot-toast';
 import style from './ContactsPage.module.css';
-import type { AppDispatch } from '../../redux/store.js';
-import type { Contact } from '../../types.js';
+import type { AppDispatch } from '../../redux/store';
+import type { Contact } from '../../types';
 //import { useDebounce } from 'use-debounce';
 
 enum ModalMode {
